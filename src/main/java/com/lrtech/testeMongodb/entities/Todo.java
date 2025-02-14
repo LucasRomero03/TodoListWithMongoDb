@@ -27,11 +27,12 @@ public class Todo {
   private int prioridade;
   private User user;
   
-  public Todo(String nome, String descricao, Boolean realizado, int prioridade) {
+  public Todo(String nome, String descricao, Boolean realizado, int prioridade,User user) {
     this.nome = nome;
     this.descricao = descricao;
     this.realizado = realizado;
     this.prioridade = prioridade;
+    this.user=user;
   }
 
 

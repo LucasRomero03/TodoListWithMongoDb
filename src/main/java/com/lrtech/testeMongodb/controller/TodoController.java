@@ -65,6 +65,17 @@ public class TodoController {
     return ResponseEntity.ok(dto);
   }
 
+  @GetMapping("/usuarios/{id}")
+  public ResponseEntity<List<TodoDto>> getTodoByUser_id(@PathVariable String id) {
+    return ResponseEntity.ok(todoService.getTodoByUser(id));
+  }
+
+  @GetMapping("/usuarios")
+  public ResponseEntity<List<TodoDto>> getTodoByNome(@RequestParam("nome") String nome) {
+    List<TodoDto> todos = todoService.getTodoByNome(nome);
+    return ResponseEntity.ok(todos);
+  }
+
   // GETBYNAME
   @GetMapping(value = "/nome")
   public ResponseEntity<List<TodoDto>> getByNome(@RequestParam("nome") String nome) {
