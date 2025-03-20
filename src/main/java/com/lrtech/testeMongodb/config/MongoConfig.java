@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 @Configuration
 public class MongoConfig {
+  //  TODO passar como variavel de ambiente 
   private  String uri = "mongodb://localhost:27017/testeMongo";
   @Bean
   public MongoDatabaseFactory mongoConfigure(){

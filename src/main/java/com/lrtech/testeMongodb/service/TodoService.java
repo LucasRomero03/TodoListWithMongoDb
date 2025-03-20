@@ -77,19 +77,19 @@ public class TodoService {
     todo.setPrioridade(dto.getPrioridade());
     todo.setRealizado(dto.getRealizado());
 
-    todo.setUser(dtoToENtity(userService.getById(dto.getUserDto().getId())));
+    // todo.setUser(dtoToENtity(userService.getById(dto.getUserDto().getId())));
     todorep.save(todo);
     return new TodoDto(todo);
   }
 
-  private User dtoToENtity(UserDto dto){
-    User user = new User();
-    user.setId(dto.getId());
-    user.setNome(dto.getNome());
-    user.setEmail(dto.getEmail());
-    //user.setSenha(dto.getSenha());
-    return user;
-  }
+  // private User dtoToENtity(UserDto dto){
+  //   User user = new User();
+  //   user.setId(dto.getId());
+  //   user.setNome(dto.getNome());
+  //   user.setEmail(dto.getEmail());
+  //   //user.setSenha(dto.getSenha());
+  //   return user;
+  // }
 
   public void deleteTodo(String id) {
     if (!todorep.existsById(id)) {
