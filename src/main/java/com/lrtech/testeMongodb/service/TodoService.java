@@ -61,12 +61,7 @@ public class TodoService {
       throw new ResourceNotFound("nao achou");
     }
     
-    //System.out.println(user.getNome());
-
-    // Busca os Todo associados ao user_nome
-    
-
-    // Converte para DTO
+  
     
   }
   public List<TodoDto> getTodoByUser(String id){

@@ -21,15 +21,15 @@ public class TodoDto {
   private UserDto userDto;
 
   public TodoDto(Todo todo) {
-    this.id = todo.getId();
-    this.nome = todo.getNome();
-    this.descricao = todo.getDescricao();
-    this.realizado = todo.getRealizado();
-    this.prioridade = todo.getPrioridade();
+    id = todo.getId();
+    nome = todo.getNome();
+    descricao = todo.getDescricao();
+    realizado = todo.getRealizado();
+    prioridade = todo.getPrioridade();
     
     // Adicionando corretamente o UserDto
     if (todo.getUser() != null) {
-        this.userDto = new UserDto(todo.getUser());
+        userDto = new UserDto(todo.getUser());
     }
   }
 
