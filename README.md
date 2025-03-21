@@ -1,107 +1,102 @@
-<h1 align="center">
-TODO List
-</h1>
+# TODO List API
 
+API para gerenciar tarefas (CRUD) utilizando MongoDB como banco de dados.
 
-API para gerenciar tarefas (CRUD) para Ajudar nas Demandas Internas.
+## Tecnologias Utilizadas
 
-## Tecnologias
+- [Spring Boot 3.4.3](https://spring.io/projects/spring-boot) - Framework principal
+- [Spring MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html) - Estrutura para desenvolvimento web
+- [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb) - Integração com banco NoSQL MongoDB
+- [SpringDoc OpenAPI 3](https://springdoc.org/v2/#spring-webflux-support) - Documentação automatizada da API
+- [Lombok](https://projectlombok.org/) - Redução de boilerplate no código Java
+- [Maven](https://maven.apache.org/) - Gerenciador de dependências e build
+- [MongoDB](https://www.mongodb.com/pt-br) - Banco de dados NoSQL
 
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [Spring MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)
-- [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb)
-- [SpringDoc OpenAPI 3](https://springdoc.org/v2/#spring-webflux-support)
-- [MongoDB](https://www.mongodb.com/pt-br/lp/cloud/atlas/try4?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_prosp-brand_gic-null_amers-br_ps-all_desktop_pt-br_lead&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=p&utm_ad_campaign_id=20378068769&adgroup=154980291521&cq_cmp=20378068769&gad_source=1&gclid=Cj0KCQjw-e6-BhDmARIsAOxxlxU1ShkbCtAN-o10xgJcN7p-N2dFiDb9FlGyjs09Q0Ob_jXp-rjluwQaAgM7EALw_wcB)
+## Princípios e Boas Práticas Adotadas
 
-## Práticas adotadas
+- Arquitetura baseada em **API REST**
+- Uso de padrões **SOLID, DRY, YAGNI, KISS**
+- **Injeção de Dependências** para desacoplamento
+- **Tratamento de Erros** estruturado
+- **Documentação Automática** via OpenAPI 3
 
-- SOLID, DRY, YAGNI, KISS
-- API REST
-- Consultas com Spring Data MongoDB
-- Injeção de Dependências
-- Tratamento de respostas de erro
-- Geração automática do Swagger com a OpenAPI 3
+## Como Executar o Projeto
 
-## Como Executar
+1. **Clonar o repositório:**
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   cd testeMongodb
+   ```
+2. **Configurar o MongoDB:**
+   - Certifique-se de que o MongoDB está rodando localmente ou configure a conexão com um servidor remoto.
+   
+3. **Compilar e construir o projeto:**
+   ```bash
+   ./mvnw clean package
+   ```
+4. **Executar a aplicação:**
+   ```bash
+   java -jar target/testeMongodb-0.0.1-SNAPSHOT.jar
+   ```
 
-- Clonar repositório git
-- Construir o projeto:
+A API estará acessível em: [http://localhost:8080](http://localhost:8080)
 
+A documentação via Swagger/OpenAPI 3 pode ser acessada em:
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+## Endpoints da API
+
+### Criar Tarefa
+```http
+POST /todos
 ```
-$ ./mvnw clean package
-
+#### Exemplo de Corpo da Requisição:
+```json
+{
+  "nome": "Minha Tarefa",
+  "descricao": "Detalhes da tarefa",
+  "prioridade": 1
+}
 ```
 
-- Executar a aplicação:
-
+### Listar Todas as Tarefas
+```http
+GET /todos
 ```
-$ java -jar target/todolist-0.0.1-SNAPSHOT.jar
-
-```
-
-A API poderá ser acessada em [localhost:8080](http://localhost:8080/).
-O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-
-## API Endpoints
-
-Para fazer as requisições HTTP abaixo, foi utilizada a ferramenta [Postman](https://www.postman.com/):
-
-- Criar Tarefa
-
-```
-$ http POST :8080/todos nome="Todo 1" descricao="Desc Todo 1" prioridade=1
-
+#### Exemplo de Resposta:
+```json
 [
   {
-    "descricao": "Desc Todo 1",
-    "id": 1,
-    "nome": "Todo 1",
+    "id": "1",
+    "nome": "Minha Tarefa",
+    "descricao": "Detalhes da tarefa",
     "prioridade": 1,
     "realizado": false
   }
 ]
-
 ```
 
-- Listar Tarefas
-
+### Atualizar Tarefa
+```http
+PUT /todos/{id}
 ```
-$ http GET :8080/todos
-
-[
-  {
-    "descricao": "Desc Todo 1",
-    "id": 1,
-    "nome": "Todo 1",
-    "prioridade": 1,
-    "realizado": false
-  }
-]
-
+#### Exemplo de Corpo da Requisição:
+```json
+{
+  "nome": "Tarefa Atualizada",
+  "descricao": "Nova descrição",
+  "prioridade": 2
+}
 ```
 
-- Atualizar Tarefa
-
+### Remover Tarefa
+```http
+DELETE /todos/{id}
 ```
-$ http PUT :8080/todos/1 nome="Todo 1 Up" descricao="Desc Todo 1 Up" prioridade=2
-
-[
-  {
-    "descricao": "Desc Todo 1 Up",
-    "id": 1,
-    "nome": "Todo 1 Up",
-    "prioridade": 2,
-    "realizado": false
-  }
-]
-
+#### Resposta:
+```json
+{}
 ```
 
-- Remover Tarefa
 
-```
-http DELETE :8080/todos/1
 
-[ ]
-
-```
