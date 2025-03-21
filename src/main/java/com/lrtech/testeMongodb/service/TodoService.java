@@ -13,7 +13,7 @@ import com.lrtech.testeMongodb.entities.Todo;
 import com.lrtech.testeMongodb.entities.User;
 import com.lrtech.testeMongodb.repository.TodoRepository;
 import com.lrtech.testeMongodb.repository.UserRepository;
-import com.lrtech.testeMongodb.service.exceptions.ResourceNotFound;
+import com.lrtech.testeMongodb.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class TodoService {
@@ -29,7 +29,7 @@ public class TodoService {
   }
 
   public TodoDto getById(String id) {
-    Todo todo = todorep.findById(id).orElseThrow(() -> new ResourceNotFound("recurso não encontrado"));
+    Todo todo = todorep.findById(id).orElseThrow(() -> new ResourceNotFoundException("recurso não encontrado"));
     return new TodoDto(todo);
   }
 
@@ -39,7 +39,7 @@ public class TodoService {
   public List<TodoDto> getByNome(String nome) {
     List<Todo> listTodos = todorep.findByNomeContainingIgnoreCaseOrderByNomeAsc(nome);
     if (listTodos.isEmpty()) {
-      throw new ResourceNotFound("recurso nao encontrado");
+      throw new ResourceNotFoundException("recurso nao encontrado");
     }
     return listTodos.stream().map(x -> new TodoDto(x)).toList();
   }
@@ -58,7 +58,7 @@ public class TodoService {
         .map(TodoDto::new)
         .toList();
     } catch (Exception e) {
-      throw new ResourceNotFound("nao achou");
+      throw new ResourceNotFoundException("nao achou");
     }
     
   
@@ -93,19 +93,19 @@ public class TodoService {
 
   public void deleteTodo(String id) {
     if (!todorep.existsById(id)) {
-      throw new ResourceNotFound("recurso não encontrado");
+      throw new ResourceNotFoundException("recurso não encontrado");
     }
     try {
       todorep.deleteById(id);
     } catch (Exception e) {
-      throw new ResourceNotFound("banco de dados ");
+      throw new ResourceNotFoundException("banco de dados ");
     }
 
   }
 
   public TodoDto updateTodo(String id, TodoDto dto) {
     try {
-      Todo todo = todorep.findById(id).orElseThrow(() -> new ResourceNotFound("recurso nao encontrado"));
+      Todo todo = todorep.findById(id).orElseThrow(() -> new ResourceNotFoundException("recurso nao encontrado"));
       todo.setNome(dto.getNome());
       todo.setDescricao(dto.getDescricao());
       todo.setPrioridade(dto.getPrioridade());
@@ -113,7 +113,7 @@ public class TodoService {
       todorep.save(todo);
       return new TodoDto(todo);
     } catch (Exception e) {
-      throw new ResourceNotFound("Recurso não encontrado ");
+      throw new ResourceNotFoundException("Recurso não encontrado ");
     }
 
   }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lrtech.testeMongodb.dto.UserDto;
 import com.lrtech.testeMongodb.entities.User;
 import com.lrtech.testeMongodb.repository.UserRepository;
-import com.lrtech.testeMongodb.service.exceptions.ResourceNotFound;
+import com.lrtech.testeMongodb.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -19,7 +19,7 @@ public class UserService {
   }
 
   public UserDto getById(String id){
-    User user = userRep.findById(id).orElseThrow( () -> new ResourceNotFound("recurso nao encontrado"));
+    User user = userRep.findById(id).orElseThrow( () -> new ResourceNotFoundException("recurso nao encontrado"));
 
     return new UserDto(user);
   }
@@ -39,28 +39,28 @@ public class UserService {
   }
   public void deleteUser(String id){
    if(!userRep.existsById(id)){
-    throw new ResourceNotFound("recurso nao encontrado");
+    throw new ResourceNotFoundException("recurso nao encontrado");
    }
     try {
      
       userRep.deleteById(id);
     } catch (Exception e) {
-      throw new ResourceNotFound("recurso nao encontrado 1232132");
+      throw new ResourceNotFoundException("recurso nao encontrado 1232132");
     }
   }
   public UserDto atualizarUser(String id, UserDto userDto){
     if (!userRep.existsById(id)) {
-      throw new ResourceNotFound("recurso nao encontrado");
+      throw new ResourceNotFoundException("recurso nao encontrado");
     }
     try {
-      User user = userRep.findById(id).orElseThrow(()-> new ResourceNotFound("recurso nao encontrado"));
+      User user = userRep.findById(id).orElseThrow(()-> new ResourceNotFoundException("recurso nao encontrado"));
       user.setNome(userDto.getNome());
       user.setEmail(userDto.getEmail());
       user.setSenha(userDto.getSenha());
       userRep.save(user);
       return userDto;
     } catch (Exception e) {
-      throw new ResourceNotFound("email ja existe");
+      throw new ResourceNotFoundException("email ja existe");
     }
     
     

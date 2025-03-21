@@ -1,5 +1,6 @@
 package com.lrtech.testeMongodb.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
@@ -8,8 +9,10 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 @Configuration
 public class MongoConfig {
-  //  TODO passar como variavel de ambiente 
-  private  String uri = "mongodb://localhost:27017/testeMongo";
+  
+  @Value("${spring.data.mongodb.uri}")
+  private  String uri ;
+  
   @Bean
   public MongoDatabaseFactory mongoConfigure(){
     return new SimpleMongoClientDatabaseFactory(uri);
