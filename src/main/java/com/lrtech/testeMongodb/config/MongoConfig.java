@@ -11,12 +11,13 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 public class MongoConfig {
   
   @Value("${spring.data.mongodb.uri}")
-  private  String uri ;
-  
+  private String uri;
+
   @Bean
   public MongoDatabaseFactory mongoConfigure(){
     return new SimpleMongoClientDatabaseFactory(uri);
   }
+
   @Bean
   public MongoTemplate mongoTemplate(){
     return new MongoTemplate(mongoConfigure());
