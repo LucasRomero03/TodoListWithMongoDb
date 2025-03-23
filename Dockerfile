@@ -1,16 +1,31 @@
-FROM ubuntu:latest AS build
+# Fase de build
+FROM maven:3.9.5-eclipse-temurin-21-alpine AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-21-jdk -y
-COPY . .
+# Define o diretório de trabalho
+WORKDIR /app
 
-RUN apt-get install maven -y
-RUN mvn clean install 
+# Copia apenas os arquivos necessários para a build
+COPY pom.xml .
+COPY src ./src
 
-FROM openjdk:21-jdk-slim
+# Executa a build do projeto
+RUN mvn clean package -DskipTests
 
+# Fase final
+FROM eclipse-temurin:21-alpine
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia o JAR gerado na fase de build
+COPY --from=build /app/target/testeMongodb-0.0.1-SNAPSHOT.jar app.jar
+
+# Expõe a porta da aplicação
 EXPOSE 8080
 
-COPY --from=build /target/testeMongodb-0.0.1-SNAPSHOT.jar app.jar
+# Define um usuário não-root para executar a aplicação
+RUN adduser -D myuser
+USER myuser
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+# Comando para rodar a aplicação
+ENTRYPOINT ["java", "-jar", "app.jar"]
