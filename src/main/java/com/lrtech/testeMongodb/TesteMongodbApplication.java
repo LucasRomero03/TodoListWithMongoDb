@@ -2,13 +2,11 @@ package com.lrtech.testeMongodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
-@EnableMongoRepositories
 @OpenAPIDefinition(info = @Info(title = " Swagger OpenApi",version = "1",description = "API desenvolvida para Demandas internas do GTI"))
 public class TesteMongodbApplication {
 
